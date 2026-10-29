@@ -1,4 +1,16 @@
-# Python APIs
+# Python API, fast-load Ladybug fork
+
+The Python binding of the [fast-load Ladybug fork](https://github.com/Seragonia/ladybug). Same API as upstream, plus:
+
+- **Coexists with `kuzu`.** The pybind classes are module-local, `_lbug` links with `-Bsymbolic` on Linux, and the
+  native module is loaded locally, so `import kuzu` and `import ladybug` work in one process and it exits cleanly.
+  Set `LBUG_RTLD_GLOBAL=1` to restore the global load that extensions loaded from a file need.
+
+Build it from the engine repository with `make python-bundled` (bundles `fts` and `algo`).
+
+---
+
+## Python APIs
 
 ## Build
 
