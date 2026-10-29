@@ -4,7 +4,7 @@
 #include "planner/operator/logical_plan.h"
 
 void PyPreparedStatement::initialize(py::handle& m) {
-    py::class_<PyPreparedStatement>(m, "PreparedStatement")
+    py::class_<PyPreparedStatement>(m, "PreparedStatement", py::module_local())
         .def("get_error_message", &PyPreparedStatement::getErrorMessage)
         .def("is_success", &PyPreparedStatement::isSuccess);
 }

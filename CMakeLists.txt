@@ -89,6 +89,9 @@ target_compile_options(_lbug PRIVATE
 )
 target_link_options(_lbug PRIVATE
     $<$<PLATFORM_ID:Windows>:/DEBUG>
+    # Bind to our own definitions: kuzu loads its module globally and exports thousands of the
+    # same symbol names (antlr4, ...), which would otherwise send our calls into its code.
+    $<$<PLATFORM_ID:Linux>:-Wl,-Bsymbolic>
 )
 
 # --- Cross-Platform Symbol Separation ---

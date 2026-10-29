@@ -38,7 +38,7 @@ using namespace lbug::common;
 using namespace lbug;
 
 void PyConnection::initialize(py::handle& m) {
-    py::class_<PyConnection>(m, "Connection")
+    py::class_<PyConnection>(m, "Connection", py::module_local())
         .def(py::init<PyDatabase*, uint64_t>(), py::arg("database"), py::arg("num_threads") = 0)
         .def("close", &PyConnection::close)
         .def("execute", &PyConnection::execute, py::arg("prepared_statement"),

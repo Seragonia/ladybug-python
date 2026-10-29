@@ -24,7 +24,7 @@ using lbug::importCache;
         PyDateTimeAPI->DateTimeType)
 
 void PyQueryResult::initialize(py::handle& m) {
-    py::class_<PyQueryResult>(m, "result")
+    py::class_<PyQueryResult>(m, "result", py::module_local())
         .def("hasNext", &PyQueryResult::hasNext)
         .def("getNext", &PyQueryResult::getNext)
         .def("hasNextQueryResult", &PyQueryResult::hasNextQueryResult)

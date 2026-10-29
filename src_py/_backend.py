@@ -15,10 +15,13 @@ def _import_pybind_module() -> Any:
     if sys.platform != "linux":
         return import_module("._lbug", __package__)
 
+    # Global symbols are only needed by extensions loaded from a file. Kuzu also loads its module
+    # globally and exports thousands of the same names (antlr4, ...), so the two would call into
+    # each other's code. LBUG_RTLD_GLOBAL=1 restores the global load for file-loaded extensions.
+    if os.environ.get("LBUG_RTLD_GLOBAL") != "1":
+        return import_module("._lbug", __package__)
     original_dlopen_flags = sys.getdlopenflags()
     try:
-        # Keep pybind's symbols visible to any transitive native extensions
-        # without affecting the process-wide import path for the C-API backend.
         sys.setdlopenflags(os.RTLD_GLOBAL | os.RTLD_LAZY)
         return import_module("._lbug", __package__)
     finally:

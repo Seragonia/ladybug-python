@@ -12,7 +12,7 @@
 using namespace lbug::common;
 
 void PyDatabase::initialize(py::handle& m) {
-    py::class_<PyDatabase>(m, "Database")
+    py::class_<PyDatabase>(m, "Database", py::module_local())
         .def(py::init<const std::string&, uint64_t, uint64_t, bool, bool, uint64_t, bool, int64_t,
                  bool, bool, bool>(),
             py::arg("database_path"), py::arg("buffer_pool_size") = 0,
